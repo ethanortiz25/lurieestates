@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Submission Successful</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Link your styles -->
+</head>
+<body>
+    <div class="container">
+        <h2>Thank You, <span id="name"></span>!</h2>
+        <p>Your message has been received. Here’s a copy of what you submitted:</p>
+        <div class="receipt">
+            <p><strong>Email:</strong> <span id="email"></span></p>
+            <p><strong>Subject:</strong> <span id="subject"></span></p>
+            <p><strong>Message:</strong></p>
+            <p id="message"></p>
+        </div>
+        <a href="/" class="btn">Return to Home</a>
+    </div>
+
+    <script>
+        // Get URL parameters
+        const params = new URLSearchParams(window.location.search);
+        document.getElementById("name").innerText = params.get("name") || "Guest";
+        document.getElementById("email").innerText = params.get("email") || "N/A";
+        document.getElementById("subject").innerText = params.get("subject") || "No Subject";
+        document.getElementById("message").innerText = params.get("message") || "No Message";
+    </script>
+</body>
+</html>
