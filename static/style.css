@@ -91,16 +91,4 @@ background-size: cover;
 .listing-details h5 {
   margin-top: 20px;
   margin-bottom: 10px;
-}    html, body {
-  height: 100%;
-  margin: 0;
-}
-/* Make the body a flex container in a column layout */
-body {
-  display: flex;
-  flex-direction: column;
-}
-/* Main content will grow to fill available space */
-.content {
-  flex: 1;
 }
