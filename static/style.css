@@ -81,3 +81,14 @@ background-size: cover;
   z-index: 10;
   color: white;
 }
+.section-title {
+  margin-bottom: 40px;
+  text-align: center;
+}
+.listing-details {
+  line-height: 1.6;
+}
+.listing-details h5 {
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
