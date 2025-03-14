@@ -181,3 +181,20 @@ footer img {
   background-color: #f3dd92;
   color: black;
 }
+
+.nav-logo-text {
+  max-height: 40px; 
+  width: auto;
+}
+
+.modal-header {
+    border-color: #f3dd92;
+}
+
+/* make the nav-log-text visually hidden on mobile */
+
+@media (max-width: 768px) {
+  .nav-logo-text {
+    display: none;
+  }
+}

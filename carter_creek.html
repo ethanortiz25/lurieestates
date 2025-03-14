@@ -12,12 +12,95 @@
   <!-- GSAP & ScrollTrigger -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+  <link rel="stylesheet" href="https://rawgit.com/LeshikJanz/libraries/master/Bootstrap/baguetteBox.min.css">
   <link rel="stylesheet" href="static/style.css">
+  <style>
+
+    .container.gallery-container {
+        background-color: #fff;
+        color: #35373a;
+        min-height: 100vh;
+        padding: 30px 50px;
+    }
+    
+    .gallery-container h1 {
+        text-align: center;
+        margin-top: 50px;
+        font-family: 'Droid Sans', sans-serif;
+        font-weight: bold;
+    }
+    
+    .gallery-container p.page-description {
+        text-align: center;
+        margin: 25px auto;
+        font-size: 18px;
+        color: #999;
+    }
+    
+    .tz-gallery {
+        padding: 40px;
+    }
+    
+    /* Override bootstrap column paddings */
+    .tz-gallery .row > div {
+        padding: 2px;
+    }
+    
+    .tz-gallery .lightbox img {
+        width: 100%;
+        border-radius: 0;
+        position: relative;
+    }
+    
+    .tz-gallery .lightbox:before {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        margin-top: -13px;
+        margin-left: -13px;
+        opacity: 0;
+        color: #000000;
+        font-size: 26px;
+        font-family: 'Glyphicons Halflings';
+        content: '\e003';
+        pointer-events: none;
+        z-index: 9000;
+        transition: 0.4s;
+    }
+    
+    
+    .tz-gallery .lightbox:after {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+        background-color: rgba(46, 132, 206, 0.7);
+        content: '';
+        transition: 0.4s;
+    }
+    
+    .tz-gallery .lightbox:hover:after,
+    .tz-gallery .lightbox:hover:before {
+        opacity: 1;
+    }
+    
+    .baguetteBox-button {
+        background-color: transparent !important;
+    }
+    
+    @media(max-width: 768px) {
+        body {
+            padding: 0;
+        }
+    }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark fixed-top shadow">
     <div class="container">
-      <a class="navbar-brand d-flex align-items-center" href="index.html"><img src="static/lurie_estates_logo.PNG" style="height: 60px; width: auto;"><img src="static/lurie_estates_logo_text.PNG" style="height: 40px; width: auto;"></a>
+      <a class="navbar-brand d-flex align-items-center" href="index.html"><img src="static/lurie_estates_logo.PNG" style="max-height: 60px; width: auto;"><img src="static/lurie_estates_logo_text.PNG" class="nav-logo-text"></a>
       <button
         class="navbar-toggler"
         type="button"
@@ -64,59 +147,81 @@
       </div>
     </div>
   </nav>
-    
-    <!-- Hero Section with Parallax Layers -->
-    <header id="hero" class="hero">
-        <div class="layer layer1"><div id="heroCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
-            <div class="carousel-inner">
-              <div class="carousel-item active">
-                <img src="static/carter_creek_c (1).PNG" class="d-block w-100" alt="Hero Image 1">
-              </div>
-              <div class="carousel-item">
-                <img src="static/carter_creek_c (2).PNG" class="d-block w-100" alt="Hero Image 2">
-              </div>
-              <div class="carousel-item">
-                <img src="static/carter_creek_c (3).PNG" class="d-block w-100" alt="Hero Image 3">
-              </div>
-              <div class="carousel-item">
-                <img src="static/carter_creek_c (4).PNG" class="d-block w-100" alt="Hero Image 3">
-              </div>
-              <div class="carousel-item">
-                <img src="static/carter_creek_c (5).PNG" class="d-block w-100" alt="Hero Image 3">
-              </div>
-              <div class="carousel-item">
-                <img src="static/carter_creek_c (6).PNG" class="d-block w-100" alt="Hero Image 3">
-              </div>
-              <div class="carousel-item">
-                <img src="static/carter_creek_c (7).PNG" class="d-block w-100" alt="Hero Image 3">
-              </div>
-              <div class="carousel-item">
-                <img src="static/carter_creek_c (8).PNG" class="d-block w-100" alt="Hero Image 3">
-              </div>
-              <div class="carousel-item">
-                <img src="static/carter_creek_c (9).PNG" class="d-block w-100" alt="Hero Image 3">
-              </div>
-              <div class="carousel-item">
-                <img src="static/carter_creek_c (10).PNG" class="d-block w-100" alt="Hero Image 3">
-              </div>
-            </div>
-          </div></div>
-        <div class="layer layer2"></div>
-        
-        <div class="content text-center text-black">
-            <div class="bg-white p-5 rounded">
-        <h1 class="display-4">Carter Creek</h1>
-        <a href="#description" class="btn btn-outline-primary">View Detail</a>
-            </div>
+  
+  <div class="modal fade" id="exampleLightbox" tabindex="-1" aria-labelledby="exampleLightboxLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-dialog-centered">
+      <div class="modal-content bg-black">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleLightboxLabel">Carter Creek</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
-    </header>
-
+        <div class="modal-body bg-black">
+          <div id="lightboxExampleCarousel" class="carousel slide">
+            <div class="carousel-inner ratio ratio-16x9 bg-dark">
+              <div class="carousel-item text-center active">
+                <img src="static/carter_creek_c (1).PNG" class="img-fluid mh-100">
+              </div>
+              <div class="carousel-item text-center">
+                <img src="static/carter_creek_c (2).PNG" class="img-fluid mh-100">
+              </div>
+              <div class="carousel-item text-center">
+                <img src="static/carter_creek_c (3).PNG" class="img-fluid mh-100">
+              </div>
+              <div class="carousel-item text-center">
+                <img src="static/carter_creek_c (4).PNG" class="img-fluid mh-100">
+              </div>
+              <div class="carousel-item text-center">
+                <img src="static/carter_creek_c (5).PNG" class="img-fluid mh-100">
+              </div>
+              <div class="carousel-item text-center">
+                <img src="static/carter_creek_c (6).PNG" class="img-fluid mh-100">
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#lightboxExampleCarousel" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#lightboxExampleCarousel" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   <!-- Description Section -->
+   <div style="height: 80px;"></div>
   <section id="description" class="container">
     <div class="section-title">
-      <h2>Property Description</h2>
+      <h2>3514 Carter Creek</h2>
     </div>
-    <div class="row">
+    
+    <div class="row justify-content-center">
+      <div class="col-md-12">
+        <div class="row justify-content-center">
+          <a href="#" class="col-sm-4 mt-3" data-bs-toggle="modal" data-bs-target="#exampleLightbox">
+            <img data-bs-target="#lightboxExampleCarousel" data-bs-slide-to="0" src="static/carter_creek_c (1).PNG" class="img-fluid">
+          </a>
+          <a href="#" class="col-sm-4 mt-3" data-bs-toggle="modal" data-bs-target="#exampleLightbox">
+            <img data-bs-target="#lightboxExampleCarousel" data-bs-slide-to="1" src="static/carter_creek_c (2).PNG" class="img-fluid">
+          </a>
+          <a href="#" class="col-sm-4 mt-3" data-bs-toggle="modal" data-bs-target="#exampleLightbox">
+            <img data-bs-target="#lightboxExampleCarousel" data-bs-slide-to="2" src="static/carter_creek_c (3).PNG" class="img-fluid">
+          </a>
+          <a href="#" class="col-sm-4 mt-3" data-bs-toggle="modal" data-bs-target="#exampleLightbox">
+            <img data-bs-target="#lightboxExampleCarousel" data-bs-slide-to="3" src="static/carter_creek_c (4).PNG" class="img-fluid">
+          </a>
+          <a href="#" class="col-sm-4 mt-3" data-bs-toggle="modal" data-bs-target="#exampleLightbox">
+            <img data-bs-target="#lightboxExampleCarousel" data-bs-slide-to="4" src="static/carter_creek_c (5).PNG" class="img-fluid">
+          </a>
+          <a href="#" class="col-sm-4 mt-3" data-bs-toggle="modal" data-bs-target="#exampleLightbox">
+            <img data-bs-target="#lightboxExampleCarousel" data-bs-slide-to="5" src="static/carter_creek_c (6).PNG" class="img-fluid">
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-4">
       <div class="col-lg-8 offset-lg-2">
         <p>
           Nestled in the heart of Bryan, this meticulously maintained 4-bedroom, 2-bathroom home is a perfect blend of comfort and convenience. Boasting a spacious living and dining area combination, the home also features a 2-car garage. Step outside to discover a screened-in porch, ideal for year-round enjoyment. The backyard is a true retreat, complete with an inviting inground pool, a large expanse of green space, and additional storage sheds. The property sits on a sizable lot with a sprinkler system and is fully fenced, providing both privacy and security. Enjoy outdoor gatherings on the patio or explore the nearby Tanglewood Community Park, which offers picnic tables, a covered pavilion, tennis courts, a splash pad, open green fields, playground equipment, and more. The newly renovated, award-winning Sul Ross Elementary School, Bryan High School, shopping centers, grocery stores, and dining options are conveniently located within a mile radius, with Texas A&M University just a short 2.5-mile drive away. All leases participate in the Latchel Resident Benefit package. The additional fee for this package is $40 per month.
