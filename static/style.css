@@ -187,11 +187,14 @@ footer img {
   width: auto;
 }
 
+.nav-logo {
+  max-height: 60px; 
+  width: auto;
+}
+
 .modal-header {
     border-color: #f3dd92;
 }
-
-/* make the nav-log-text visually hidden on mobile */
 
 @media (max-width: 768px) {
   .nav-logo-text {
@@ -203,5 +206,10 @@ footer img {
   .mobile-trim {
     padding: 0 !important;
     margin: 0 !important;
+  }
+
+  .nav-logo {
+    max-height: 40px; 
+    width: auto;
   }
 }
