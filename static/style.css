@@ -197,4 +197,11 @@ footer img {
   .nav-logo-text {
     display: none;
   }
+  .mobile-hidden {
+    display: none;
+  }
+  .mobile-trim {
+    padding: 0 !important;
+    margin: 0 !important;
+  }
 }
