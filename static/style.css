@@ -196,6 +196,10 @@ footer img {
     border-color: #f3dd92;
 }
 
+a {
+  color: #756dff;
+}
+
 @media (max-width: 768px) {
   .nav-logo-text {
     display: none;
