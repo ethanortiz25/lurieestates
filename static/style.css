@@ -200,6 +200,12 @@ a {
   color: #756dff;
 }
 
+@media (min-width: 768px) {
+  .desktop-hidden {
+    display: none;
+  }
+}
+
 @media (max-width: 768px) {
   .nav-logo-text {
     display: none;
